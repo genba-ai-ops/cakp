@@ -32,11 +32,11 @@ export const Character: React.FC<{
     <AbsoluteFill
       style={{
         left: 'auto',
-        right: 60,
-        bottom: -40,
+        right: 40,
+        bottom: 0,
         top: 'auto',
-        width: 620,
-        height: 1085,
+        width: 560,
+        height: 980,
         transform: `translateY(${bob}px)`,
       }}
     >

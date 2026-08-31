@@ -24,9 +24,10 @@ const wrap = (body) =>
 // --- 体と頭（口と目は含まない） ---
 const body = wrap(`
   <g stroke="${LINE}" stroke-width="4" stroke-linejoin="round">
-    <path d="M60 700 V600 q0-70 70-92 l70-22 h0 l70 22 q70 22 70 92 V700 Z" fill="${CLOTH}"/>
-    <path d="M200 586 l-38 22 38 46 38-46 Z" fill="${CLOTH_DARK}"/>
-    <rect x="170" y="530" width="60" height="70" rx="24" fill="${SKIN}"/>
+    <!-- 首 → 服 → 襟 → 頭 の順に重ねる（首の付け根が服に隠れるようにする） -->
+    <rect x="168" y="440" width="64" height="160" rx="26" fill="${SKIN}"/>
+    <path d="M60 700 V608 q0-72 72-94 l68-20 h0 l68 20 q72 22 72 94 V700 Z" fill="${CLOTH}"/>
+    <path d="M166 600 L200 664 L234 600" fill="none" stroke="${CLOTH_DARK}" stroke-width="10"/>
     <ellipse cx="200" cy="330" rx="152" ry="168" fill="${SKIN}"/>
     <path d="M48 320 q0-176 152-176 t152 176 q-24-40-56-52 q-96 40-192 0 q-32 12-56 52 Z" fill="${HAIR}"/>
   </g>
