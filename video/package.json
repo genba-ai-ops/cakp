@@ -1,0 +1,27 @@
+{
+  "name": "explainer-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Character-narrated slide explainer video, built with Remotion + VOICEVOX",
+  "scripts": {
+    "assets": "node scripts/make-placeholder-assets.mjs",
+    "synth": "node scripts/synth.mjs",
+    "timeline": "node scripts/build-timeline.mjs",
+    "build": "npm run assets && npm run synth && npm run timeline",
+    "studio": "remotion studio",
+    "render": "remotion render Explainer out/video.mp4",
+    "still": "remotion still Explainer out/still.png --frame=60"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.519",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.519"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "typescript": "^7.0.2"
+  }
+}

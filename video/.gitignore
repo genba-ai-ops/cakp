@@ -1,0 +1,7 @@
+node_modules/
+out/
+.cache/
+# 生成物（`npm run build` で作り直せる）
+public/audio/
+public/char/
+src/timeline.json
