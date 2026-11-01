@@ -100,6 +100,54 @@ VOICEVOX は無料で使えますが、**クレジット表記が必要**で、�
 音声ライブラリと立ち絵素材はライセンスが別々なことが多いので、動画を公開する前に必ず確認してください。
 `public/char/` に入っているのは、このリポジトリで生成した差し替え前提のプレースホルダーです。
 
+## BGM を付ける（Gemini API / Lyria）
+
+`GEMINI_API_KEY` を環境に設定したうえで:
+
+```bash
+npm run bgm:list    # 使える音楽モデルを確認
+npm run bgm         # public/bgm.mp3 を生成
+npm run timeline    # BGM を検出してタイムラインに反映
+npm run render
+```
+
+`public/bgm.mp3`（.wav / .m4a / .ogg も可）があれば `build-timeline` が自動で検出し、
+動画全体に 1 本だけ敷かれます。無ければ BGM 無しで組み立てられるので、
+用意しないまま `npm run build` しても壊れません。
+
+自分で用意した音源を使う場合も、`public/bgm.mp3` に置くだけで同じように乗ります。
+
+### 音量
+
+既定は `0.08`（ナレーションより約 -22dB）です。**ここを上げすぎると声が埋もれます。**
+
+```bash
+BGM_VOLUME=0.05 npm run timeline
+```
+
+前後 1.5 秒は自動でフェードイン・アウトします。
+
+### プロンプト
+
+既定では「ナレーションの下に敷くための、控えめなインストゥルメンタル」を指示しています。
+変えたいときは環境変数で上書きします。
+
+```bash
+BGM_PROMPT="Gentle acoustic guitar, warm and optimistic, instrumental, seamless loop" npm run bgm
+```
+
+30 秒程度のクリップをループさせる前提なので、`BGM_MODEL` で短いクリップ用モデルを
+指定したほうが安く済みます。利用できるモデル名は `npm run bgm:list` で確認してください。
+
+### 権利関係の注意
+
+- Lyria の出力について **Google は所有権を主張しません**（Google Cloud Service Specific Terms §20(a)）。
+- ただし Imagen や Veo と違い、**Lyria は Google の著作権免責（indemnification）の対象外**です。
+  [対象サービス一覧](https://cloud.google.com/terms/generative-ai-indemnified-services) に Lyria は無く、
+  プレビュー版は Pre-GA Offerings Terms §5(b) で明文的に免責対象外とされています。
+- 出力には **SynthID の電子透かし**が入ります。除去しないでください。
+- 収益化する動画やクライアント納品物に使う場合は、上記を踏まえて判断してください。
+
 ## 1 枚だけ確認する
 
 フル書き出しは時間がかかるので、レイアウトの確認は静止画で済ませると速いです。

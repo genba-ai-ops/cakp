@@ -15,6 +15,6 @@ export const RemotionRoot: React.FC = () => (
     fps={timeline.fps}
     width={timeline.width}
     height={timeline.height}
-    defaultProps={{scenes: timeline.scenes as SceneData[]}}
+    defaultProps={{scenes: timeline.scenes as SceneData[], bgm: timeline.bgm}}
   />
 );

@@ -1,8 +1,9 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig} from 'remotion';
+import {BackgroundMusic} from './BackgroundMusic';
 import {Scene} from './Scene';
 import {theme} from './types';
-import type {SceneData} from './types';
+import type {Bgm, SceneData} from './types';
 
 /** 全体の進捗バー。Sequence の外にあるので通し再生のフレームを見る。 */
 const Progress: React.FC = () => {
@@ -21,7 +22,7 @@ const Progress: React.FC = () => {
   );
 };
 
-export const Explainer: React.FC<{scenes: SceneData[]}> = ({scenes}) => {
+export const Explainer: React.FC<{scenes: SceneData[]; bgm: Bgm | null}> = ({scenes, bgm}) => {
   let offset = 0;
   return (
     <AbsoluteFill style={{backgroundColor: theme.bg}}>
@@ -34,6 +35,7 @@ export const Explainer: React.FC<{scenes: SceneData[]}> = ({scenes}) => {
           </Sequence>
         );
       })}
+      {bgm ? <BackgroundMusic src={bgm.file} volume={bgm.volume} /> : null}
       <Progress />
     </AbsoluteFill>
   );

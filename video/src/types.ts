@@ -15,10 +15,19 @@ export type SceneData = {
   subtitles: Subtitle[];
 };
 
+export type Bgm = {
+  /** public/ からの相対パス */
+  file: string;
+  /** 0..1。ナレーションを邪魔しない範囲に抑える */
+  volume: number;
+};
+
 export type Timeline = {
   fps: number;
   width: number;
   height: number;
+  /** public/bgm.* があれば build-timeline が入れる。無ければ null */
+  bgm: Bgm | null;
   scenes: SceneData[];
 };
 

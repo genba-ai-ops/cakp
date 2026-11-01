@@ -12,6 +12,8 @@ const CACHE_FILE = join(ROOT, '.cache', 'synth.json');
 const OUT_FILE = join(ROOT, 'src', 'timeline.json');
 
 const FPS = Number(process.env.FPS ?? 30);
+// ナレーションより十分低く。-22dB 相当。声が埋もれるときはここを下げる。
+const BGM_VOLUME = Number(process.env.BGM_VOLUME ?? 0.08);
 const TAIL_SECONDS = 0.4; // シーン終わりの余白（切り替えが忙しくならないように）
 
 /** ナレーションを句点で切り、文字数の比率で表示時間を割り当てる */
@@ -34,6 +36,16 @@ function buildSubtitles(narration, durationInFrames) {
     from += span;
   });
   return subtitles;
+}
+
+/** public/bgm.* があれば BGM として採用する（無ければ BGM 無しで組み立てる） */
+function findBgm() {
+  for (const ext of ['mp3', 'wav', 'm4a', 'ogg']) {
+    if (existsSync(join(ROOT, 'public', `bgm.${ext}`))) {
+      return {file: `bgm.${ext}`, volume: BGM_VOLUME};
+    }
+  }
+  return null;
 }
 
 function main() {
@@ -62,8 +74,13 @@ function main() {
   });
 
   const total = timeline.reduce((s, x) => s + x.durationInFrames, 0);
-  writeFileSync(OUT_FILE, JSON.stringify({fps: FPS, width: 1920, height: 1080, scenes: timeline}, null, 2));
+  const bgm = findBgm();
+  writeFileSync(
+    OUT_FILE,
+    JSON.stringify({fps: FPS, width: 1920, height: 1080, bgm, scenes: timeline}, null, 2)
+  );
   console.log(`src/timeline.json を書き出しました: ${timeline.length} シーン / ${total} フレーム (${(total / FPS).toFixed(1)}s)`);
+  console.log(bgm ? `BGM: public/${bgm.file} (volume ${bgm.volume})` : 'BGM: なし（public/bgm.mp3 を置くと自動で乗ります）');
 }
 
 try {

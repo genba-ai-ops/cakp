@@ -5,3 +5,4 @@ out/
 public/audio/
 public/char/
 src/timeline.json
+public/bgm.*

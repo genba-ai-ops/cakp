@@ -10,7 +10,9 @@
     "build": "npm run assets && npm run synth && npm run timeline",
     "studio": "remotion studio",
     "render": "remotion render Explainer out/video.mp4",
-    "still": "remotion still Explainer out/still.png --frame=60"
+    "still": "remotion still Explainer out/still.png --frame=60",
+    "bgm": "node scripts/make-bgm.mjs",
+    "bgm:list": "node scripts/make-bgm.mjs --list"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.519",
